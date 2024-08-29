@@ -5,18 +5,10 @@ import csv
 from collections import Counter
 from datetime import datetime
 
-# Initialize lists to store various data fields for later analysis.
-trip_duration_list = []
-start_station_list = []
-end_station_list = []
-gender_list = []
-user_list = []
-birthyear_list = []
-
-# Initialize counters to count the occurrences of months, days, and hours in the 'Start Time' column.
-month_counter = Counter()
-day_counter = Counter()
-hour_counter = Counter()
+# Initialize lists and counters to store data fields and occurrences for analysis
+trip_duration_list, start_station_list, end_station_list = [], [], []
+gender_list, user_list, birthyear_list = [], [], []
+month_counter, day_counter, hour_counter = Counter(), Counter(), Counter()
 
 # Track the number of raw data entries processed.
 raw_data_count = 0
@@ -436,14 +428,14 @@ def get_filter():
             print("Invalid filter. Please choose month, day, both, or none.")
 
 
-def disp_raw_data(city_filter, filtered_data, raw_data_count):
+def disp_raw_data(filtered_data, raw_data_count, batch_size=5):
     """
     Display raw data in batches of 5 based on user request.
 
     Args:
-    city_filter (str): The city selected by the user for analysis.
     filtered_data (list): List of filtered data based on user input.
     raw_data_count (int): The current count of displayed raw data batches.
+    batch_size (int): The number of data points to display in each batch. Default is 5
 
     Returns:
     int: Updated raw_data_count after displaying a batch of raw data.
@@ -464,16 +456,31 @@ def disp_raw_data(city_filter, filtered_data, raw_data_count):
         # Now you can access specific rows using indexing
         print(data_list[0])  # Print the first row (header)
 
-        # Display the next 5 data points of the filtered database
-        start_index = 1 + (5 * raw_data_count)  # Skip the header row
-        end_index = start_index + 5
+        # Calculate the start and end index for the current batch
+        start_index = raw_data_count * batch_size
+        end_index = start_index + batch_size
 
-        # Ensure we don't exceed the length of data_list
-        for i in range(start_index, min(end_index, len(data_list))):
-            print(filtered_data[i])
 
-        raw_data_count += 1  # Increment count for the next batch of data
+        # Display data in the current batch
+        display_batch(filtered_data, start_index, end_index)
+
+        # Increment count for next batch
+        raw_data_count += 1
         return raw_data_count
+
+def display_batch(filtered_data,start_index, end_index):
+    """
+        Helper function to display a batch of data.
+
+        Args:
+            filtered_data (list): List of filtered data based on user input.
+            start_index (int): The starting index of the batch.
+            end_index (int): The ending index of the batch.
+        """
+
+    for i in range(start_index, min(end_index, len(filtered_data))):
+        print(filtered_data[i])
+
 
 
 def main():
@@ -496,7 +503,7 @@ def main():
         while True:
             raw_data_input = input('Would you like to view individual trip data? Enter yes or no. ').upper().strip()
             if raw_data_input == 'YES':
-                raw_data_count = disp_raw_data(city_filter, filtered_data, raw_data_count)  # Update raw_data_count
+                raw_data_count = disp_raw_data(filtered_data, raw_data_count)  # Update raw_data_count
             elif raw_data_input == 'NO':
                 break
             else:
