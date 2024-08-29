@@ -5,18 +5,10 @@ import csv
 from collections import Counter
 from datetime import datetime
 
-# Initialize lists to store various data fields for later analysis.
-trip_duration_list = []
-start_station_list = []
-end_station_list = []
-gender_list = []
-user_list = []
-birthyear_list = []
-
-# Initialize counters to count the occurrences of months, days, and hours in the 'Start Time' column.
-month_counter = Counter()
-day_counter = Counter()
-hour_counter = Counter()
+# Initialize lists and counters to store data fields and occurrences for analysis
+trip_duration_list, start_station_list, end_station_list = [], [], []
+gender_list, user_list, birthyear_list = [], [], []
+month_counter, day_counter, hour_counter = Counter(), Counter(), Counter()
 
 # Track the number of raw data entries processed.
 raw_data_count = 0
