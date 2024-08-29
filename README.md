@@ -15,6 +15,22 @@ The purpose of the Udacity Bike Share Project is to accept user input as filters
 - washington.csv
 - new_york_city.csv
 
+## Installation 
+To run this project, you will need Python and the following libraries:  
+- pandas
+- collections 
+- time
+- numpy
+- csv
+- datetime
+
+
+## Usage
+To run the analysis, run the following command in your terminal:  
+```python bikeshare.py```
+
 ## Credits
 - Udacity for providing the project framework
 - [Pandas Documentation](https://pandas.pydata.org/docs/) for data manipulation guidance
+
+
