@@ -469,6 +469,15 @@ def disp_raw_data(filtered_data, raw_data_count, batch_size=5):
         return raw_data_count
 
 def display_batch(filtered_data,start_index, end_index):
+    """
+        Helper function to display a batch of data.
+
+        Args:
+            filtered_data (list): List of filtered data based on user input.
+            start_index (int): The starting index of the batch.
+            end_index (int): The ending index of the batch.
+        """
+
     for i in range(start_index, min(end_index, len(filtered_data))):
         print(filtered_data[i])
 
